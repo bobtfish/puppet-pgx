@@ -1,0 +1,5 @@
+META.yml
+MYMETA.*
+Makefile
+inc/
+*.swp

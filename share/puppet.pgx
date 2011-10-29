@@ -1,0 +1,11 @@
+pp_file: <list_of_resources>
+
+list_of_resources: <resource>+
+
+resource:
+    <resource_name>
+    /~<LCURLY>~/
+    /<RCURLY>/
+
+resource_name: /\w+/
+
