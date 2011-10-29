@@ -6,10 +6,7 @@ resource:
     <resource_type>
     /~<LCURLY>~/
     <wspace>
-    <resource_name>
-    <wspace>
-    <set_of_resource_terms>*
-    <wspace>
+    <resource_definition>*
     /<RCURLY>/
     <wspace>
 
@@ -18,6 +15,12 @@ bare_word: /(\w+)/
 quoted_string: /"([<SLASH>\w\s]+)"/
 
 resource_type: /(\w+(?:<COLON><COLON>\w+)*)/
+
+resource_definition:
+    <resource_name>
+    <wspace>
+    <set_of_resource_terms>*
+    <wspace>
 
 resource_name: <bare_resource_name> | <quoted_resource_name>
 
