@@ -17,5 +17,14 @@ warn Dumper($data);
 
 is_deeply($data, [['file', 'foo', [foo => 'bar']]]);
 
+$doc = q{file {
+    "/tmp/foo":
+        ensure => exists
+}
+};
+
+$data = Pegex::Puppet->parse($doc);
+is_deeply($data, [['file', '/tmp/foo', [ensure => 'exists']]]);
+
 done_testing;
 

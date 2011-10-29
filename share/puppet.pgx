@@ -13,11 +13,14 @@ resource:
     /<RCURLY>/
     <wspace>
 
-resource_type: /(\w+)/
+bare_word: /(\w+)/
 
-resource_name: /(\w+):/
+# Fixme - foo or foo::bar or foo::bar::bazz
+resource_type: <bare_word>
 
-resource_term: <resource_type> /~=<RANGLE>~/ <resource_type>
+resource_name: /([\w<SLASH>]+):/ | /"([<SLASH>\w\s]+)":/
+
+resource_term: <bare_word> /~=<RANGLE>~/ <bare_word>
 
 wspace: /(?:<EOL>~)*/
 
