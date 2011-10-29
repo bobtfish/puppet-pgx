@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More 0.88;
+use Data::Dumper;
 
 use Pegex::Puppet;
 
@@ -9,22 +10,28 @@ my @data = (
     foo:
         foo => bar
 }
-} => [['file', ['foo'], [foo => 'bar']]]],
+} => [['file', ['foo'], [[[foo => 'bar']]]]]],
 [q{file {
     "/tmp/foo":
         ensure => exists
 }
-} => [['file', ['/tmp/foo'], [ensure => 'exists']]]],
+} => [['file', ['/tmp/foo'], [[[ensure => 'exists']]]]]],
 [q{file {
     "/tmp/foo":
         content => "foo"
 }
-} => [['file', ['/tmp/foo'], [content => 'foo']]]],
+} => [['file', ['/tmp/foo'], [[[content => 'foo']]]]]],
 [q{file::mine {
     "/tmp/foo":
         content => "foo"
 }
-} => [['file::mine', ['/tmp/foo'], [content => 'foo']]]],
+} => [['file::mine', ['/tmp/foo'], [[[content => 'foo']]]]]],
+[q{file::mine {
+    "/tmp/foo":
+        content => "foo"
+        ensure => exists
+}
+} => [['file::mine', ['/tmp/foo'], [[[content => 'foo']], [[ensure => 'exists']]]]]],
 );
 
 foreach my $thing (@data) {

@@ -8,7 +8,7 @@ resource:
     <wspace>
     <resource_name>
     <wspace>
-    <resource_term>
+    <set_of_resource_terms>*
     <wspace>
     /<RCURLY>/
     <wspace>
@@ -24,6 +24,8 @@ resource_name: <bare_resource_name> | <quoted_resource_name>
 bare_resource_name: <bare_word> /:/
 
 quoted_resource_name: <quoted_string> /:/
+
+set_of_resource_terms: <wspace> <resource_term> /[<COMMA>;]?/ <wspace>
 
 resource_term: <resource_term_name> <fat_comma> <resource_term_value>
 
