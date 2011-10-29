@@ -10,28 +10,28 @@ my @data = (
     foo:
         foo => bar
 }
-} => [['file', [[['foo'], [[[foo => 'bar']]]]]]]],
+} => [['file', [['foo', {foo => 'bar'}]]]]],
 [q{file {
     "/tmp/foo":
         ensure => exists
 }
-} => [['file', [[['/tmp/foo'], [[[ensure => 'exists']]]]]]]],
+} => [['file', [['/tmp/foo', {ensure => 'exists'}]]]]],
 [q{file {
     "/tmp/foo":
         content => "foo"
 }
-} => [['file', [[['/tmp/foo'], [[[content => 'foo']]]]]]]],
+} => [['file', [['/tmp/foo', {content => 'foo'}]]]]],
 [q{file::mine {
     "/tmp/foo":
         content => "foo"
 }
-} => [['file::mine', [[['/tmp/foo'], [[[content => 'foo']]]]]]]],
+} => [['file::mine', [['/tmp/foo', {content => 'foo'}]]]]],
 [q{file::mine {
     "/tmp/foo":
         content => "foo",
         ensure => exists;
 }
-} => [['file::mine', [[['/tmp/foo'], [[[content => 'foo']], [[ensure => 'exists']]]]]]]],
+} => [['file::mine', [['/tmp/foo', {content => 'foo', ensure => 'exists'}]]]]],
 [q{file::mine {
     "/tmp/foo":
         content => "foo",
@@ -40,7 +40,7 @@ my @data = (
         content => "blaa",
         ensure => exists;
 }
-} => [['file::mine', [[['/tmp/foo'], [[[content => 'foo']], [[ensure => 'exists']]]], [['/tmp/blaaa'], [[[content => 'blaa']], [[ensure => 'exists']]]]]]]],
+} => [['file::mine', [['/tmp/foo', {content => 'foo', ensure => 'exists'}], ['/tmp/blaaa', {content => 'blaa', ensure => 'exists'}]]]]],
 [q{fnord {
     foo:
         foo => bar
@@ -55,8 +55,8 @@ file::mine {
         ensure => exists;
 }
 } => [
-['fnord', [[['foo'], [[['foo' => 'bar']]]]]],
-['file::mine', [[['/tmp/foo'], [[[content => 'foo']], [[ensure => 'exists']]]], [['/tmp/blaaa'], [[[content => 'blaa']], [[ensure => 'exists']]]]]]]],
+['fnord', [['foo', {'foo' => 'bar'}]]],
+['file::mine', [['/tmp/foo', {content => 'foo', ensure => 'exists'}], ['/tmp/blaaa', {content => 'blaa', ensure => 'exists'}]]]]],
 
 
 );
