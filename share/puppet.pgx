@@ -17,8 +17,7 @@ bare_word: /(\w+)/
 
 quoted_string: /"([<SLASH>\w\s]+)"/
 
-# Fixme - foo or foo::bar or foo::bar::bazz
-resource_type: <bare_word>
+resource_type: /(\w+(?:<COLON><COLON>\w+)*)/
 
 resource_name: <bare_resource_name> | <quoted_resource_name>
 

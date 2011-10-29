@@ -4,38 +4,37 @@ use Test::More 0.88;
 
 use Pegex::Puppet;
 
-my $doc = q{file {
+my @data = (
+[q{file {
     foo:
         foo => bar
 }
-};
-
-my $data = Pegex::Puppet->parse($doc);
-ok $data;
-use Data::Dumper;
-warn Dumper($data);
-
-is_deeply($data, [['file', 'foo', [foo => 'bar']]]);
-
-$doc = q{file {
+} => [['file', ['foo'], [foo => 'bar']]]],
+[q{file {
     "/tmp/foo":
         ensure => exists
 }
-};
-
-$data = Pegex::Puppet->parse($doc);
-warn Dumper $data;
-is_deeply($data, [['file', ['/tmp/foo'], [ensure => 'exists']]]);
-
-$doc = q{file {
+} => [['file', ['/tmp/foo'], [ensure => 'exists']]]],
+[q{file {
     "/tmp/foo":
         content => "foo"
 }
-};
+} => [['file', ['/tmp/foo'], [content => 'foo']]]],
+[q{file::mine {
+    "/tmp/foo":
+        content => "foo"
+}
+} => [['file::mine', ['/tmp/foo'], [content => 'foo']]]],
+);
 
-$data = Pegex::Puppet->parse($doc);
-warn Dumper $data;
-is_deeply($data, [['file', ['/tmp/foo'], [content => 'foo']]]);
+foreach my $thing (@data) {
+    my ($doc, $exp) = @$thing;
+
+    my $data = Pegex::Puppet->parse($doc);
+
+    is_deeply($data, $exp)
+        or diag "Got: " . Dumper($data) . "\nExpected: " . Dumper($exp);
+}
 
 done_testing;
 
