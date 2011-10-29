@@ -41,6 +41,24 @@ my @data = (
         ensure => exists;
 }
 } => [['file::mine', [[['/tmp/foo'], [[[content => 'foo']], [[ensure => 'exists']]]], [['/tmp/blaaa'], [[[content => 'blaa']], [[ensure => 'exists']]]]]]]],
+[q{fnord {
+    foo:
+        foo => bar
+}
+
+file::mine {
+    "/tmp/foo":
+        content => "foo",
+        ensure => exists;
+    "/tmp/blaaa":
+        content => "blaa",
+        ensure => exists;
+}
+} => [
+['fnord', [[['foo'], [[['foo' => 'bar']]]]]],
+['file::mine', [[['/tmp/foo'], [[[content => 'foo']], [[ensure => 'exists']]]], [['/tmp/blaaa'], [[[content => 'blaa']], [[ensure => 'exists']]]]]]]],
+
+
 );
 
 foreach my $thing (@data) {
