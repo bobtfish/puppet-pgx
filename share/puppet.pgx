@@ -15,12 +15,24 @@ resource:
 
 bare_word: /(\w+)/
 
+quoted_string: /"([<SLASH>\w\s]+)"/
+
 # Fixme - foo or foo::bar or foo::bar::bazz
 resource_type: <bare_word>
 
-resource_name: /([\w<SLASH>]+):/ | /"([<SLASH>\w\s]+)":/
+resource_name: <bare_resource_name> | <quoted_resource_name>
 
-resource_term: <bare_word> /~=<RANGLE>~/ <bare_word>
+bare_resource_name: <bare_word> /:/
+
+quoted_resource_name: <quoted_string> /:/
+
+resource_term: <resource_term_name> <fat_comma> <resource_term_value>
+
+resource_term_name: <bare_word>
+
+resource_term_value: <bare_word> | <quoted_string>
+
+fat_comma: /~=<RANGLE>~/
 
 wspace: /(?:<EOL>~)*/
 
