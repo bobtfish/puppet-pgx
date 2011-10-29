@@ -3,9 +3,21 @@ pp_file: <list_of_resources>
 list_of_resources: <resource>+
 
 resource:
-    <resource_name>
+    <resource_type>
     /~<LCURLY>~/
+    <wspace>
+    <resource_name>
+    <wspace>
+    <resource_term>
+    <wspace>
     /<RCURLY>/
+    <wspace>
 
-resource_name: /\w+/
+resource_type: /(\w+)/
+
+resource_name: /(\w+):/
+
+resource_term: <resource_type> /~=<RANGLE>~/ <resource_type>
+
+wspace: /(?:<EOL>~)*/
 
