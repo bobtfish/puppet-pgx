@@ -4,6 +4,7 @@ use Test::More 0.88;
 use Test::Differences;
 
 use Pegex::Puppet;
+use boolean;
 
 my @data = (
 [q{file {
@@ -11,6 +12,11 @@ my @data = (
         foo => bar
 }
 } => [['file', [['foo', {foo => 'bar'}]]]]],
+[q{file {
+    foo:
+        foo => true
+}
+} => [['file', [['foo', {foo => &boolean::true}]]]]],
 [q{file {
     "/tmp/foo":
         ensure => exists

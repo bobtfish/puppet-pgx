@@ -34,9 +34,13 @@ resource_term: <resource_term_name> <fat_comma> <resource_term_value>
 
 resource_term_name: <bare_word>
 
-resource_term_value: <bare_word> | <quoted_string>
+resource_term_value: <true> | <false> | <bare_word> | <quoted_string>
 
 fat_comma: /~=<RANGLE>~/
 
 wspace: /(?:<EOL>~)*/
+
+true: /true/
+
+false: /false/
 
