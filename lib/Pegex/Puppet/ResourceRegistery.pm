@@ -2,6 +2,7 @@ package Pegex::Puppet::ResourceRegistery;
 use Moose;
 use Moose::Util::TypeConstraints;
 use MooseX::Types::Moose qw/ HashRef /;
+use MooseX::Types::LoadableClass qw/ LoadableClass /;
 use namespace::autoclean;
 
 role_type 'Pegex::Puppet::ResourceType';
