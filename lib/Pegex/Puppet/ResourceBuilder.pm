@@ -19,6 +19,7 @@ sub got_list_of_resources {
     my ($self, $data) = @_;
     use Data::Dumper;
     warn Dumper $data;
+    my @resources;
     foreach my $resource_block ($data->flatten) {
         my ($type_name, $resources) = @{ $resource_block };
         die("No resource type or define named $type_name")
@@ -27,10 +28,10 @@ sub got_list_of_resources {
         use Data::Dumper;
         warn "List of resources " . Dumper($resources);
         foreach my $resource_def ($resources->flatten) {
-            my $r = $type->build_resource($resource_def);
+            push @resources, $type->build_resource($resource_def);
         }
     }
-    return $data;
+    return \@resources;
 };
 
 __PACKAGE__->meta->make_immutable(replace_constructor => 1);
