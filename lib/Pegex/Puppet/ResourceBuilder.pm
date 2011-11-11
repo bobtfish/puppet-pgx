@@ -1,5 +1,6 @@
 package Pegex::Puppet::ResourceBuilder;
 use Moose;
+use Moose::Autobox;
 use Pegex::Puppet::ResourceRegistery;
 
 extends 'Pegex::Puppet::Data';
@@ -14,17 +15,22 @@ has resource_registry => (
     /],
 );
 
-sub got_resource {
+sub got_list_of_resources {
     my ($self, $data) = @_;
-    foreach my $datum (@$data) {
-        my ($type_name, $params) = @{ $datum };
+    use Data::Dumper;
+    warn Dumper $data;
+    foreach my $resource_block ($data->flatten) {
+        my ($type_name, $resources) = @{ $resource_block };
         die("No resource type or define named $type_name")
             unless $self->has_resourcetype_named($type_name);
         my $type = $self->get_resourcetype_named($type_name);
         use Data::Dumper;
-        warn Dumper($params);
-        return $type->build_resource($params);
+        warn "List of resources " . Dumper($resources);
+        foreach my $resource_def ($resources->flatten) {
+            my $r = $type->build_resource($resource_def);
+        }
     }
+    return $data;
 };
 
 __PACKAGE__->meta->make_immutable(replace_constructor => 1);

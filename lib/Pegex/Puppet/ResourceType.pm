@@ -8,7 +8,7 @@ sub build_resource {
     my ($self, $data) = @_;
     my ($name, $params) = @$data;
     my %p = (%$params, name => $name);
-    use Data::Dumper; warn Dumper(\%p);
+    use Data::Dumper; warn "Resource type params " . Dumper(\%p);
     $self->implementation_class->new(%$params, name => $name);
 }
 
