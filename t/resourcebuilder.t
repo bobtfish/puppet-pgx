@@ -45,12 +45,24 @@ foreach my $test (@tests) {
     is $resource->ensure, 'exists';
     is $resource->name, '/tmp/foo';
     is $resource->content, 'foo';
-    my $resource = $tree->[1];
+     $resource = $tree->[1];
     isa_ok $resource, 'Pegex::Puppet::Resource::File';
     is $resource->ensure, 'exists';
     is $resource->name, '/tmp/bar';
     is $resource->content, 'bar';
 }
+
+warn('x' x 80);
+my $test = q{define foo {file {
+    "/tmp/foo":
+        ensure => exists;
+}
+}
+};
+
+$tree = $parser->parse($test);
+use Data::Dumper;
+warn Dumper($tree);
 
 done_testing;
 

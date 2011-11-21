@@ -18,7 +18,7 @@ has resource_registry => (
 sub got_list_of_resources {
     my ($self, $data) = @_;
     use Data::Dumper;
-    warn Dumper $data;
+    warn "List of resources " . Dumper $data;
     my @resources;
     foreach my $resource_block ($data->flatten) {
         my ($type_name, $resources) = @{ $resource_block };
@@ -33,6 +33,13 @@ sub got_list_of_resources {
     }
     return \@resources;
 };
+
+sub got_define {
+    my ($self, $data) = @_;
+    use Data::Dumper;
+    warn "Define containts" . Dumper($data);
+    $data;
+}
 
 __PACKAGE__->meta->make_immutable(replace_constructor => 1);
 1;

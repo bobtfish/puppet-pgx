@@ -6,7 +6,6 @@ with 'Pegex::Puppet::Resource';
 
 has content => (
     is => 'ro',
-    required => 1,
 );
 
 has ensure => (

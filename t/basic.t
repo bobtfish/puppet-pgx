@@ -63,8 +63,12 @@ file::mine {
 } => [
 ['fnord', [['foo', {'foo' => 'bar'}]]],
 ['file::mine', [['/tmp/foo', {content => 'foo', ensure => 'exists'}], ['/tmp/blaaa', {content => 'blaa', ensure => 'exists'}]]]]],
-
-
+[q{define thing {
+    file {
+        foo:
+            foo => bar
+    }
+}} => ['thing', [['file', [['foo', {foo => 'bar'}]]]]]],
 );
 
 foreach my $thing (@data) {

@@ -1,4 +1,18 @@
-pp_file: <list_of_resources>
+pp_file: <list_of_resources> | <define>
+
+define:
+    /define/
+    <wspace>
+    <define_name>
+    <wspace>
+    <LCURLY>
+    <wspace>
+    <list_of_resources>
+    <wspace>
+    <RCURLY>
+    <wspace>
+
+define_name: <bare_word> | <quoted_string>
 
 list_of_resources: <resource>+
 
@@ -38,7 +52,7 @@ resource_term_value: <true> | <false> | <bare_word> | <quoted_string>
 
 fat_comma: /~=<RANGLE>~/
 
-wspace: /(?:<EOL>~)*/
+wspace: /(?:[<EOL>~])*/
 
 true: /true/
 
